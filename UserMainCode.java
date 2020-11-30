@@ -2,11 +2,13 @@
 import java.util.Scanner;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.time.DayOfWeek;
 
@@ -224,19 +226,95 @@ public class UserMainCode {
 		return d;
 	}
 
-	public static String getCapital(HashMap<String, String> hm, String state) {
-		Iterator<String> it = hm.keySet().iterator();
-		String st = "";
-		String s = "";
-		String val = "";
-		while (it.hasNext()) {
-			s = it.next();
-			if (s.equalsIgnoreCase(state)) {
-				val = hm.get(s);
+	static String extractMax(String str) {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the String with delimeter");
+		str = sc.nextLine();
+		System.out.println("Enter the delimeter");
+		String str1 = sc.nextLine();
+		String word = "";
+		str = str + str1;
+		System.out.println(str);
+		List<String> liststring = new ArrayList<String>();
+		for (int i = 0; i <= str.length() - 1; i++) {
+			if (str.charAt(i) != str1.charAt(0)) {
+				word = word + str.charAt(i);
+
+			}
+
+			else {
+				if (word.length() != 0)
+					liststring.add(word);
+				word = "";
+
+			}
+
+		}
+
+		String longstring = liststring.get(0);
+		for (String val : liststring) {
+			if (val.length() > longstring.length())
+				longstring = val;
+		}
+		return longstring;
+	}
+
+	public static String getCapital(Map<String, String> mp, String s) {
+
+		{
+			String rs = "";
+			Set<String> k = mp.keySet();
+			for (String key : k) {
+				if (key.equals(s)) {
+					rs = (mp.get(key)).toLowerCase() + "$" + key.toLowerCase();
+				}
+			}
+			return rs;
+
+		}
+	}
+
+	public static String storeMaxVowelWord(String s) {
+		int m = 0;
+		String op = "";
+		StringTokenizer st = new StringTokenizer(s, " ");
+		while (st.hasMoreTokens()) {
+			String v = st.nextToken();
+			String r = v;
+			r = r.replaceAll("[aeiouAEIOU]", "");
+
+			if (m < (v.length() - r.length())) {
+				m = v.length() - r.length();
+				op = v;
 			}
 		}
-		st = val.toLowerCase() + "$" + s.toLowerCase();
-		return st;
+		return op;
+	}
+
+	public static int checkUnique(String pw) {
+
+		int c = 0;
+		StringBuffer sb = new StringBuffer(pw);
+		for (int i = 0; i < sb.length(); i++) {
+			c = 0;
+			for (int j = i + 1; j < sb.length(); j++) {
+				if (sb.charAt(i) == sb.charAt(j)) {
+					sb.deleteCharAt(j);
+					c++;
+					j--;
+				}
+
+			}
+			if (c >= 1) {
+				sb.deleteCharAt(i);
+				System.out.println(sb);
+				i--;
+			}
+		}
+		System.out.println(sb);
+		return sb.length();
+
 	}
 
 	@SuppressWarnings("resource")
@@ -244,10 +322,13 @@ public class UserMainCode {
 		System.out.println(UserMainCode.printCapitalized("everyday is a new beginning"));
 
 		Scanner h = new Scanner(System.in);
+		System.out.println("Enter the length of the array :");
 		int n = h.nextInt();
+		System.out.println("Enter the numbers :");
 		Integer a[] = new Integer[n];
 		for (int i = 0; i < n; i++)
 			a[i] = h.nextInt();
+		System.out.println("The Maximum distance is in the index :");
 		System.out.println(UserMainCode.findMaxDistance(a));
 
 		Scanner sc = new Scanner(System.in);
@@ -284,15 +365,7 @@ public class UserMainCode {
 			System.out.println("Nope, 5 vowels are'nt present");
 		}
 
-		Scanner so = new Scanner(System.in);
-		int n1 = so.nextInt();
-		System.out.println(" The given length is : " + n1);
-		int[] sr = new int[n1];
-		Integer[] sr1 = new Integer[n1];
-		for (int i = 0; i < n1; i++) {
-			sr[i] = so.nextInt();
-		}
-
+		System.out.println("Enter the two string to compare:");
 		System.out.println(UserMainCode.compareDashes());
 
 		Scanner v = new Scanner(System.in);
@@ -301,40 +374,58 @@ public class UserMainCode {
 		char c = v.next().charAt(0);
 		System.out.println("the formatted string is:" + reshape(s1, c));
 
+		System.out.println(" Enter the length is : ");
+		Scanner so = new Scanner(System.in);
+		int n1 = so.nextInt();
+		System.out.println(" The given length is : " + n1);
+		System.out.println(" Enter the numbers : ");
+		int[] sr = new int[n1];
+		Integer[] sr1 = new Integer[n1];
+		for (int i = 0; i < n1; i++) {
+			sr[i] = so.nextInt();
+		}
 		sr1 = UserMainCode.removeTens(sr);
+		System.out.println(" Ten's removed list : ");
 		for (int i = 0; i < n1; i++) {
 			System.out.println(sr1[i]);
 		}
 
+		System.out.println(" Enter the sentence to get the last letter of the words: ");
 		Scanner o = new Scanner(System.in);
 		String j = o.nextLine();
 		System.out.println(getLastLetter(j));
 
 		Scanner op = new Scanner(System.in);
 		Map<Integer, String> re = new HashMap<Integer, String>();
+		System.out.println(" Enter the length to get max key: ");
 		int n11 = op.nextInt();
 
 		for (int i = 0; i < n11; i++)
 			re.put(op.nextInt(), op.next());
 
 		String r = UserMainCode.getMaxKeyValue(re);
+		System.out.println(" the max key is given for : ");
 		System.out.println(r);
 
 		System.out.println(UserMainCode.getDay("Today's date and day"));
 
-		Scanner cs = new Scanner(System.in);
-		int n111 = cs.nextInt();
-		HashMap<String, String> hm = new HashMap<String, String>();
-		for (int i = 0; i < n111; i++) {
-			String states = cs.next();
-			String capital = cs.next();
+		System.out.println(UserMainCode.extractMax(str));
 
-			hm.put(states, capital);
+		System.out.println(" Enter the length: ");
+		Scanner sc1 = new Scanner(System.in);
+		int n111 = sc1.nextInt();
+		Map<String, String> mp = new HashMap<String, String>();
+		for (int i = 0; i < n111; i++) {
+			mp.put(sc1.next(), sc1.next());
 		}
-		System.out.println(hm);
-		String st = cs.next();
-		String s11 = UserMainCode.getCapital(hm, st);
-		System.out.println(s11);
+
+		String s11 = sc1.next();
+		System.out.println(" The captial and the State is: ");
+		System.out.println(UserMainCode.getCapital(mp, s11));
+
+		Scanner j8 = new Scanner(System.in);
+		String s111 = j8.nextLine();
+		System.out.println(UserMainCode.storeMaxVowelWord(s111));
 	}
 
 }
