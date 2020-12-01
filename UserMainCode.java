@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.text.ParseException;
 import java.time.DayOfWeek;
 
 public class UserMainCode {
@@ -217,13 +218,13 @@ public class UserMainCode {
 		return r;
 	}
 
-	public static String getDay(String d) {
+	public static String getDay() {
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDateTime now = LocalDateTime.now();
 		DayOfWeek day = DayOfWeek.from(now);
 		System.out.println("Date is : " + dtf.format(now) + " And the day is" + day);
-		return d;
+		return "";
 	}
 
 	static String extractMax(String str) {
@@ -308,17 +309,179 @@ public class UserMainCode {
 			}
 			if (c >= 1) {
 				sb.deleteCharAt(i);
-				System.out.println(sb);
 				i--;
 			}
 		}
 		System.out.println(sb);
 		return sb.length();
+	}
+	
+	public static int addPrimeIndex() {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the length: ");
+		int s = sc.nextInt();
+		System.out.println("Enter the array to avg prime index: ");
+		int a[] = new int[20];
+		int flag = 0, sum = 0, c = 0, j;
+		for (int i = 0; i < s; i++) {
+			a[i] = sc.nextInt();
+		}
+		for (int i = 2; i < a.length; i++) {
+			for (j = 2; j < i; j++) {
 
+				if (i % j == 0) {
+					c++;
+					
+				}
+			}
+			if (c == 0) {
+				sum += a[i];
+				flag++;
+			}
+		}
+		int avg = sum / flag;
+		return avg;
+	}
+	
+	public static ArrayList<Integer> performSetOperations(ArrayList<Integer> a12, ArrayList<Integer> a2, char c) {
+		ArrayList<Integer> op1 = new ArrayList<Integer>();
+		int k = 0;
+		switch (c) {
+		case '+':
+			a12.removeAll(a2);
+			a12.addAll(a2);
+			op1 = a12;
+			break;
+		case '*':
+			a12.retainAll(a2);
+			op1 = a12;
+			break;
+		case '-':
+			for (int i = 0; i < a12.size(); i++) {
+				k = 0;
+				for (int j = 0; j < a2.size(); j++) {
+					if (a12.get(i) == a2.get(j))
+						k = 1;
+				}
+				if (k == 0)
+					op1.add(a12.get(i));
+			}
+			break;
+		}
+		return op1;
+	}
+
+	public static int getMaxSpan(int[] x, int n) {
+		int gap = 0, max = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (x[i] == x[j]) {
+					gap = j;
+				}
+			}
+			if (gap - i > max)
+				max = gap - i;
+		}
+		return max + 1;
+	}
+
+	public static String highestScorer() {
+		@SuppressWarnings("resource")
+		Scanner c6 = new Scanner(System.in);
+		System.out.println("Enter the length: ");
+		int n = c6.nextInt();
+		int i;
+		String k = "", s1 = "";
+		int sum = 0, max = 0;
+		System.out.println("Enter student-m1-m2-m3: ");
+		ArrayList<String> al = new ArrayList<String>();
+		for (i = 0; i < n; i++) {
+			al.add(c6.next());
+		}
+		for (i = 0; i < al.size(); i++) {
+			k = al.get(i);
+			StringTokenizer st = new StringTokenizer(k, "-");
+
+			while (st.hasMoreTokens()) {
+				String s = st.nextToken();
+				int a = Integer.parseInt(st.nextToken());
+				int b = Integer.parseInt(st.nextToken());
+				int c = Integer.parseInt(st.nextToken());
+				sum = a + b + c;
+				if (sum > max) {
+					max = sum;
+					s1 = s;
+				}
+			}
+		}
+		System.out.println("Highest mark is obtained by: ");
+		System.out.println(s1);
+		return "";
+	}
+
+	public static String getWordWithMaximumVowels(String s7) {
+		int m1 = 0;
+		String ol = "";
+		StringTokenizer su = new StringTokenizer(s7, " ");
+		while (su.hasMoreTokens()) {
+			String v = su.nextToken();
+			String r = v;
+			r = r.replaceAll("[aeiouAEIOU]", "");
+
+			if (m1 < (v.length() - r.length())) {
+				m1 = v.length() - r.length();
+				ol = v;
+			}
+		}
+		return ol;
+	}
+
+	public static void swapPairs(String s0) {
+
+		StringBuffer sb = new StringBuffer();
+		int l = s0.length();
+		if (l % 2 == 0) {
+			for (int i = 0; i < s0.length() - 1; i = i + 2) {
+				char a = s0.charAt(i);
+				char b = s0.charAt(i + 1);
+				sb.append(b).append(a);
+			}
+
+		} else {
+			for (int i = 0; i < s0.length() - 1; i = i + 2) {
+				char a = s0.charAt(i);
+				char b = s0.charAt(i + 1);
+				sb.append(b).append(a);
+
+			}
+			sb.append(s0.charAt(l - 1));
+			System.out.println(sb);
+		}
+	}
+
+	public static int getdigits(String s) {
+
+		char arr[] = s.toCharArray();
+		int sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (Character.isDigit(arr[i])) {
+				String str = String.valueOf(arr[i]);
+				int n = Integer.parseInt(str);
+				sum = sum + n;
+			}
+		}
+
+		if (s.replaceAll("[a-zA-Z]", "").isEmpty()) {
+
+			sum = -1;
+		}
+
+		return sum;
 	}
 
 	@SuppressWarnings("resource")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		System.out.println(UserMainCode.printCapitalized("everyday is a new beginning"));
 
 		Scanner h = new Scanner(System.in);
@@ -365,11 +528,11 @@ public class UserMainCode {
 			System.out.println("Nope, 5 vowels are'nt present");
 		}
 
-		System.out.println("Enter the two string to compare:");
+		System.out.println("Enter the two string to compare with delimiter:");
 		System.out.println(UserMainCode.compareDashes());
 
 		Scanner v = new Scanner(System.in);
-		System.out.println("enter the String:");
+		System.out.println("enter the String to reverse and add delimiter:");
 		String s1 = v.next();
 		char c = v.next().charAt(0);
 		System.out.println("the formatted string is:" + reshape(s1, c));
@@ -378,7 +541,7 @@ public class UserMainCode {
 		Scanner so = new Scanner(System.in);
 		int n1 = so.nextInt();
 		System.out.println(" The given length is : " + n1);
-		System.out.println(" Enter the numbers : ");
+		System.out.println(" Enter the numbers to remove 10 : ");
 		int[] sr = new int[n1];
 		Integer[] sr1 = new Integer[n1];
 		for (int i = 0; i < n1; i++) {
@@ -407,7 +570,7 @@ public class UserMainCode {
 		System.out.println(" the max key is given for : ");
 		System.out.println(r);
 
-		System.out.println(UserMainCode.getDay("Today's date and day"));
+		System.out.println(UserMainCode.getDay());
 
 		System.out.println(UserMainCode.extractMax(str));
 
@@ -418,14 +581,62 @@ public class UserMainCode {
 		for (int i = 0; i < n111; i++) {
 			mp.put(sc1.next(), sc1.next());
 		}
-
 		String s11 = sc1.next();
 		System.out.println(" The captial and the State is: ");
 		System.out.println(UserMainCode.getCapital(mp, s11));
 
+		System.out.println(" Enter the string to store max vowel word: ");
 		Scanner j8 = new Scanner(System.in);
 		String s111 = j8.nextLine();
 		System.out.println(UserMainCode.storeMaxVowelWord(s111));
+
+		System.out.println(" Enter the string to get unique letters: ");
+		Scanner j0 = new Scanner(System.in);
+		String s6 = j0.nextLine();
+		System.out.println(UserMainCode.checkUnique(s6));
+			
+		System.out.println(UserMainCode.addPrimeIndex());	
+		
+		Scanner i4 = new Scanner(System.in);
+		int n3 = Integer.parseInt(i4.nextLine());
+		ArrayList<Integer> a12 = new ArrayList<Integer>();
+		ArrayList<Integer> a2 = new ArrayList<Integer>();
+		for (int i = 0; i < n3; i++)
+			a12.add(Integer.parseInt(i4.nextLine()));
+		for (int i = 0; i < n3; i++)
+			a2.add(Integer.parseInt(i4.nextLine()));
+		char c1 = i4.nextLine().charAt(0);
+		System.out.println(performSetOperations(a12, a2, c1));
+		
+		System.out.println(" Enter the length: ");
+		Scanner m5 = new Scanner(System.in);
+		int n2 = m5.nextInt();
+		System.out.println(" Enter the array to find the span: ");
+		int[] a7 = new int[n2];
+		for (int i = 0; i < n2; i++) {
+			a[i] = m5.nextInt();
+		}
+		System.out.println(UserMainCode.getMaxSpan(a7, n2));
+
+		System.out.println(UserMainCode.highestScorer());
+
+		System.out.println(" Enter the string get word with max vowels: ");
+		Scanner j9 = new Scanner(System.in);
+		String s7 = j9.nextLine();
+		System.out.println(UserMainCode.getWordWithMaximumVowels(s7));
+
+		System.out.println(" Enter the string to swap letters: ");
+		Scanner kk = new Scanner(System.in);
+		String s0 = kk.nextLine();
+		swapPairs(s0);
+
+		System.out.println(" Enter the string to get digits: ");
+		Scanner sc11 = new Scanner(System.in);
+		String n8 = sc11.next();
+		int res1 = UserMainCode.getdigits(n8);
+		System.out.println(" Sum of the digits is: ");
+		System.out.println(res1);
+
 	}
 
 }
