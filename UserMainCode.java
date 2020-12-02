@@ -149,7 +149,7 @@ public class UserMainCode {
 			System.out.println("yes");
 		else if (count == 0)
 			System.out.println("no");
-		return count;
+		return 0;
 
 	}
 
@@ -216,6 +216,29 @@ public class UserMainCode {
 		}
 
 		return r;
+	}
+
+	public static int validateNumber() {
+		Scanner f = new Scanner(System.in);
+		System.out.println("enter the length of String array: ");
+		int n = f.nextInt();
+		String[] sarray = new String[n];
+		System.out.println("enter the string values to check digits: ");
+		for (int i = 0; i < n; i++) {
+			sarray[i] = f.next();
+		}
+		for (String s : sarray) {
+			for (int j = 0; j < s.length(); j++) {
+				if (!Character.isDigit(s.charAt(j))) {
+					System.out.println("Invalid");
+					return -1;
+				} else {
+					System.out.println("Valid");
+
+				}
+			}
+		}
+		return n;
 	}
 
 	public static String getDay() {
@@ -315,7 +338,7 @@ public class UserMainCode {
 		System.out.println(sb);
 		return sb.length();
 	}
-	
+
 	public static int addPrimeIndex() {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -332,7 +355,7 @@ public class UserMainCode {
 
 				if (i % j == 0) {
 					c++;
-					
+
 				}
 			}
 			if (c == 0) {
@@ -343,7 +366,7 @@ public class UserMainCode {
 		int avg = sum / flag;
 		return avg;
 	}
-	
+
 	public static ArrayList<Integer> performSetOperations(ArrayList<Integer> a12, ArrayList<Integer> a2, char c) {
 		ArrayList<Integer> op1 = new ArrayList<Integer>();
 		int k = 0;
@@ -435,6 +458,38 @@ public class UserMainCode {
 			}
 		}
 		return ol;
+	}
+
+	public static int testOrderVowels() {
+		@SuppressWarnings("resource")
+		Scanner o = new Scanner(System.in);
+		System.out.println("enter the string to check vowels: ");
+		String sa = o.nextLine();
+		int n = sa.length();
+		char c = (char) 64;
+		int count = 0;
+		for (int i = 0; i < n; i++) {
+			if (sa.charAt(i) > 96 && sa.charAt(i) < 123) {
+				if (sa.charAt(i) == 'a' || sa.charAt(i) == 'e' || sa.charAt(i) == 'i' || sa.charAt(i) == 'o'
+						|| sa.charAt(i) == 'u') {
+
+					count++;
+					if (sa.charAt(i) < c) {
+						System.out.println("Invalid");
+						return 0;
+					} else {
+						c = sa.charAt(i);
+					}
+				}
+			}
+		}
+
+		if (count == 5) {
+			System.out.println("Valid");
+		} else {
+			System.out.println("Invalid");
+		}
+		return count;
 	}
 
 	public static void swapPairs(String s0) {
@@ -570,6 +625,8 @@ public class UserMainCode {
 		System.out.println(" the max key is given for : ");
 		System.out.println(r);
 
+		UserMainCode.validateNumber();
+
 		System.out.println(UserMainCode.getDay());
 
 		System.out.println(UserMainCode.extractMax(str));
@@ -594,9 +651,9 @@ public class UserMainCode {
 		Scanner j0 = new Scanner(System.in);
 		String s6 = j0.nextLine();
 		System.out.println(UserMainCode.checkUnique(s6));
-			
-		System.out.println(UserMainCode.addPrimeIndex());	
-		
+
+		System.out.println(UserMainCode.addPrimeIndex());
+
 		Scanner i4 = new Scanner(System.in);
 		int n3 = Integer.parseInt(i4.nextLine());
 		ArrayList<Integer> a12 = new ArrayList<Integer>();
@@ -607,7 +664,7 @@ public class UserMainCode {
 			a2.add(Integer.parseInt(i4.nextLine()));
 		char c1 = i4.nextLine().charAt(0);
 		System.out.println(performSetOperations(a12, a2, c1));
-		
+
 		System.out.println(" Enter the length: ");
 		Scanner m5 = new Scanner(System.in);
 		int n2 = m5.nextInt();
@@ -624,6 +681,8 @@ public class UserMainCode {
 		Scanner j9 = new Scanner(System.in);
 		String s7 = j9.nextLine();
 		System.out.println(UserMainCode.getWordWithMaximumVowels(s7));
+
+		UserMainCode.testOrderVowels();
 
 		System.out.println(" Enter the string to swap letters: ");
 		Scanner kk = new Scanner(System.in);
